@@ -12,8 +12,24 @@ public class Solution {
         return result;
     }
     public static void main(String[] args){
-        int a[] = new int[2047];
-        System.out.println(2047 & 1);
-        System.out.println(2047 & 2048);
+        StringBuffer str = new StringBuffer("We are happy");
+        int p = str.length() - 1;
+        for(int i = 0; i <= p; ++i){
+            if(str.charAt(i) == ' ') {
+                str.append("  ");
+            }
+        }
+        int q = str.length() - 1;
+        while(p >= 0){
+            char old = str.charAt(p--);
+            if(old == ' ') {
+                str.setCharAt(q--, '0');
+                str.setCharAt(q--, '2');
+                str.setCharAt(q--, '%');
+            } else {
+                str.setCharAt(q--, old);
+            }
+        }
+        System.out.println(str.toString());
     }
 }
