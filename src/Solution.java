@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -6,30 +8,36 @@ import java.util.Map;
  * @date 2020-09-16 20:17
  */
 public class Solution {
-    public int[] twoSum(int[] nums, int target) {
-        int result[] = new int[1];
-
-        return result;
+    public static ArrayList<Integer> FindNumbersWithSum(int [] array, int sum) {
+        int p = 0, q = array.length - 1;
+        ArrayList<Integer> resultList = new ArrayList();
+        //int[] resultList = new int[2];
+        int mul = Integer.MAX_VALUE;
+        while(p < q) {
+            if (array[p] + array[q] == sum) {
+                if (p * q < mul){
+                    mul = p * q;
+                    resultList.clear();
+                    resultList.add(array[p++]);
+                    resultList.add(array[q--]);
+//                     resultList[0] = array[p++];
+//                     resultList[1] = array[q--];
+                }
+            } else if (array[p] + array[q] < sum) {
+                p++;
+            } else{
+                q--;
+            }
+        }
+        return resultList;
     }
     public static void main(String[] args){
-        StringBuffer str = new StringBuffer("We are happy");
-        int p = str.length() - 1;
-        for(int i = 0; i <= p; ++i){
-            if(str.charAt(i) == ' ') {
-                str.append("  ");
-            }
+        int [] array = new int[]{1,2,4,7,11,17};
+        ArrayList<Integer> result = FindNumbersWithSum(array,13);
+        for (int i:result
+             ) {
+            System.out.println(i);
         }
-        int q = str.length() - 1;
-        while(p >= 0){
-            char old = str.charAt(p--);
-            if(old == ' ') {
-                str.setCharAt(q--, '0');
-                str.setCharAt(q--, '2');
-                str.setCharAt(q--, '%');
-            } else {
-                str.setCharAt(q--, old);
-            }
-        }
-        System.out.println(str.toString());
+
     }
 }
