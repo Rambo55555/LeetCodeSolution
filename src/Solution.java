@@ -1,42 +1,47 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Rambo
  * @date 2020-09-16 20:17
  */
 public class Solution {
-    public static ArrayList<Integer> FindNumbersWithSum(int [] array, int sum) {
-        int p = 0, q = array.length - 1;
-        ArrayList<Integer> resultList = new ArrayList();
-        //int[] resultList = new int[2];
-        int mul = Integer.MAX_VALUE;
-        while(p < q) {
-            if (array[p] + array[q] == sum) {
-                if (p * q < mul){
-                    mul = p * q;
-                    resultList.clear();
-                    resultList.add(array[p++]);
-                    resultList.add(array[q--]);
-//                     resultList[0] = array[p++];
-//                     resultList[1] = array[q--];
-                }
-            } else if (array[p] + array[q] < sum) {
-                p++;
+    //private static int[] tmp;
+    public static void mergeSort(int [] nums, int l, int r){
+        if(l < r){
+            int mid = (l + r) / 2;
+            mergeSort(nums, l, mid);
+            mergeSort(nums, mid + 1, r);
+            merge(nums, l, mid, r);
+        }
+    }
+
+    public static void merge(int[] nums, int l, int m, int r){
+        int[] tmp = new int[nums.length];
+        int i = l, j = m + 1, k = l;
+        while(i <= m && j <= r){
+            if(nums[i] < nums[j]){
+                tmp[k++] = nums[i++];
             } else{
-                q--;
+                tmp[k++] = nums[j++];
             }
         }
-        return resultList;
+        while(j <= r){
+            tmp[k++] = nums[j++];
+        }
+        while(i <= m){
+            tmp[k++] = nums[i++];
+        }
+        for(k= l; k <= r; ++k){
+            nums[k] = tmp[k];
+        }
     }
     public static void main(String[] args){
-        int [] array = new int[]{1,2,4,7,11,17};
-        ArrayList<Integer> result = FindNumbersWithSum(array,13);
-        for (int i:result
+        int [] array = new int[]{1};
+        //tmp = new int[array.length];
+        mergeSort(array, 0, array.length-1);
+        for (int i: array
              ) {
-            System.out.println(i);
+            System.out.print(i);
         }
 
     }
