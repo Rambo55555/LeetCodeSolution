@@ -5,30 +5,23 @@ import java.util.*;
  * @date 2020-09-16 20:17
  */
 public class Solution {
-    public static int StrToInt(String str) {
-        if(str.length() < 1) return 0;
+    public static boolean match(char[] str, char[] pattern)
+    {
+        return isMatch(new String(str),new String (pattern));
+    }
 
-        long sum = 0;
-        boolean isPositive = str.charAt(0) != '-';
-        for(int i = 0; i < str.length(); ++i){
-            char ch = str.charAt(i);
-            if(i == 0 && (ch == '+' || ch == '-'))continue;
-            int cur = ch - 48;
-            if(cur >= 0 && cur <= 9){
-                sum = sum * 10 + cur;
-            } else{
-                return 0;
-            }
-            if((isPositive && sum > Integer.MAX_VALUE)) return 0;
-            if((!isPositive && sum > -1 * (long)Integer.MIN_VALUE)) {
-                System.out.println("HHH:"+ sum + " " + (-1 * (long)Integer.MIN_VALUE));
-                return 0;
-            }
+    public static boolean isMatch(String s, String p){
+        if(p.length() == 0) return s.length() == 0;
+        if(p.charAt(1) == '*'){
+            boolean isFirstEqual = (s.charAt(0) == p.charAt(0)) || ('.' == p.charAt(0));
+            return isMatch(s,p.substring(1)) || !s.isEmpty() && isFirstEqual && isMatch(s.substring(1),p);
+        }else{
+            boolean isFirstEqual = (s.charAt(0) == p.charAt(0)) || ('.' == p.charAt(0));
+            return !s.isEmpty() && isFirstEqual && isMatch(s.substring(1),p.substring(1));
         }
-        return isPositive? (int)sum : -1 * (int)sum;
     }
 
     public static void main(String[] args){
-        System.out.println(StrToInt("-123")+ " " +(Integer.MIN_VALUE * -1));
+        System.out.println(match(new char[]{'a','a','a'}, new char[]{'a','.','a'}));
     }
 }
