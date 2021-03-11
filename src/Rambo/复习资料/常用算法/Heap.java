@@ -1,4 +1,4 @@
-package Rambo.常用算法;
+package Rambo.复习资料.常用算法;
 
 /**
  * @author Rambo

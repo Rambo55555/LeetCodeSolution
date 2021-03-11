@@ -22,6 +22,7 @@ public class Solution {
     }
 
     public static void main(String[] args){
-        System.out.println(match(new char[]{'a','a','a'}, new char[]{'a','.','a'}));
+        int a = 10;
+        System.out.println(a & 0x80000000);
     }
 }
