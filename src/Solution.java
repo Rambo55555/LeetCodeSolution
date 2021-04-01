@@ -1,28 +1,82 @@
+// 本题为考试单行多行输入输出规范示例，无需提交，不计分。
 import java.util.*;
 
-/**
- * @author Rambo
- * @date 2020-09-16 20:17
- */
+import java.util.*;
+
+
 public class Solution {
-    public static boolean match(char[] str, char[] pattern)
-    {
-        return isMatch(new String(str),new String (pattern));
+    public int findKthLargest(int[] nums, int k) {
+        int end = nums.length - 1;
+        for(int i = end / 2; i >= 0; --i) {
+            maxHeapify(nums, i, end);
+        }
+        for(int i = end; i > nums.length - k; --i) {
+            swap(nums, 0, i);
+            end--;
+            maxHeapify(nums, 0, end);
+        }
+        return nums[0];
     }
 
-    public static boolean isMatch(String s, String p){
-        if(p.length() == 0) return s.length() == 0;
-        if(p.charAt(1) == '*'){
-            boolean isFirstEqual = (s.charAt(0) == p.charAt(0)) || ('.' == p.charAt(0));
-            return isMatch(s,p.substring(1)) || !s.isEmpty() && isFirstEqual && isMatch(s.substring(1),p);
-        }else{
-            boolean isFirstEqual = (s.charAt(0) == p.charAt(0)) || ('.' == p.charAt(0));
-            return !s.isEmpty() && isFirstEqual && isMatch(s.substring(1),p.substring(1));
+    public void maxHeapify(int[] nums, int i, int end) {
+        while(2 * i + 1 <= end) {
+            int l = 2 * i + 1;
+            int r = l + 1;
+            int large;
+            if(l <= end && nums[l] > nums[i]) {
+                large = l;
+            } else {
+                large = i;
+            }
+            if(r <= end && nums[r] > nums[large]) {
+                large = r;
+            }
+            if( large != i) {
+                swap(nums, large, i);
+                i = large;
+            } else {
+                break;
+            }
         }
     }
 
-    public static void main(String[] args){
-        int a = 10;
-        System.out.println(a & 0x80000000);
+    public void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
+
+    public static double computeSqrt(double presision) {
+        double x = 1;
+        while(Math.abs(2 - x * x) > presision) {
+            x = x / 2.0 + 1.0 / x;
+        }
+        return x;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = new int[]{3,1,2,4,5,6};
+        Solution solution = new Solution();
+        List<Integer> list = new LinkedList<>();
+
+
+        System.out.println(computeSqrt(0.0001));
+    }
+
+
+//    public int solve (int n, int k) {
+//        // write code here
+//        // write code here
+//        int[][] dp = new int[n+1][k+1];
+//        for (int i = 1; i <= n; ++i) {
+//            dp[i][0] = 0;
+//            for(int j = 1; j <= k; ++j) {
+//                dp[i][j] = dp[i-1][j] + dp[i-1][j-1] + 1;
+//                if(dp[i][j] >= n) {
+//                    return i;
+//                }
+//            }
+//        }
+//        return n;
+//    }
 }
