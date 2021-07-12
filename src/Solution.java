@@ -9,6 +9,21 @@ public class Solution {
      * @param root TreeNode类
      * @return int整型
      */
+    static class TreeNode {
+        int val = 0;
+        TreeNode left = null;
+        TreeNode right = null;
+        public TreeNode(int val) {
+            this.val = val;
+        }
+    }
+    static class ListNode {
+        int val;
+        ListNode next = null;
+        public ListNode(int val) {
+            this.val = val;
+        }
+    }
     public int maxMoney (TreeNode root) {
         // write code here
         if(root == null) return 0;
@@ -521,18 +536,4 @@ public class Solution {
     }
 }
 
- class TreeNode {
-    int val = 0;
-    TreeNode left = null;
-    TreeNode right = null;
-    public TreeNode(int val) {
-      this.val = val;
-    }
-}
- class ListNode {
-    int val;
-    ListNode next = null;
-    public ListNode(int val) {
-      this.val = val;
-    }
-  }
+
